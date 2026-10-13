@@ -1,0 +1,21 @@
+name: Python CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - run: pip install flake8
+
+      - name: Run linting
+        run: flake8 app.py
+
+      - name: Run test
+        run: python -c "from app import add; assert add(2,3)==5"
